@@ -4,11 +4,12 @@ using SauceDemoFramework.Pages;
 using SauceDemoFramework.TestData;
 using SauceDemoFramework.Drivers;
 using OpenQA.Selenium;
+using System.Threading;
 
 namespace SauceDemoFramework.Tests
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.None)] // 👈 IMPORTANTE (evita 4 Chromes)
+    [Parallelizable(ParallelScope.None)]
     public class LoginTests
     {
         IWebDriver driver;
@@ -18,11 +19,14 @@ namespace SauceDemoFramework.Tests
         {
             driver = DriverFactory.CreateDriver("chrome");
             driver.Navigate().GoToUrl("https://www.saucedemo.com");
+
+            Thread.Sleep(2000); // 👈 ver página cargando
         }
 
         [TearDown]
         public void TearDown()
         {
+            Thread.Sleep(1000); // 👈 ver cierre
             driver.Quit();
         }
 
@@ -31,11 +35,20 @@ namespace SauceDemoFramework.Tests
         {
             var login = new LoginPage(driver);
 
+            Thread.Sleep(1000);
+
             login.EnterUsername(user);
+            Thread.Sleep(1000);
+
             login.EnterPassword(pass);
+            Thread.Sleep(1000);
+
             login.ClickLogin();
+            Thread.Sleep(2000);
 
             login.GetError().Should().Contain(expected);
+
+            Thread.Sleep(2000);
         }
 
         [TestCaseSource(typeof(LoginData), nameof(LoginData.UC2))]
@@ -43,11 +56,20 @@ namespace SauceDemoFramework.Tests
         {
             var login = new LoginPage(driver);
 
+            Thread.Sleep(1000);
+
             login.EnterUsername(user);
+            Thread.Sleep(1000);
+
             login.EnterPassword(pass);
+            Thread.Sleep(1000);
+
             login.ClickLogin();
+            Thread.Sleep(2000);
 
             login.GetError().Should().Contain(expected);
+
+            Thread.Sleep(2000);
         }
 
         [TestCaseSource(typeof(LoginData), nameof(LoginData.UC3))]
@@ -55,17 +77,28 @@ namespace SauceDemoFramework.Tests
         {
             var login = new LoginPage(driver);
 
+            Thread.Sleep(1000);
+
             login.EnterUsername(user);
+            Thread.Sleep(1000);
+
             login.EnterPassword(pass);
+            Thread.Sleep(1000);
+
             login.ClickLogin();
+            Thread.Sleep(3000);
 
             var inventory = new InventoryPage(driver);
+
+            Thread.Sleep(2000);
 
             inventory.Burger().Should().BeTrue();
             inventory.Title().Should().BeTrue();
             inventory.Cart().Should().BeTrue();
             inventory.Sort().Should().BeTrue();
             inventory.Items().Should().BeTrue();
+
+            Thread.Sleep(2000);
         }
     }
 }
