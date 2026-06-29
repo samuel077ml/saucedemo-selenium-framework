@@ -92,11 +92,11 @@ namespace SauceDemoFramework.Tests
 
             Thread.Sleep(2000);
 
-            inventory.Burger().Should().BeTrue();
-            inventory.Title().Should().BeTrue();
-            inventory.Cart().Should().BeTrue();
-            inventory.Sort().Should().BeTrue();
-            inventory.Items().Should().BeTrue();
+            inventory.IsBurgerDisplayed().Should().BeTrue();
+            inventory.IsTitleDisplayed().Should().BeTrue();
+            inventory.IsCartDisplayed().Should().BeTrue();
+            inventory.IsSortDisplayed().Should().BeTrue();
+            inventory.AreItemsDisplayed().Should().BeTrue();
 
             Thread.Sleep(2000);
         }

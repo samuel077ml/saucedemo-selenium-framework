@@ -11,16 +11,25 @@ namespace SauceDemoFramework.Pages
             this.driver = driver;
         }
 
-        private By burger = By.CssSelector("#react-burger-menu-btn");
-        private By title = By.CssSelector(".app_logo");
-        private By cart = By.CssSelector(".shopping_cart_link");
-        private By sort = By.CssSelector(".product_sort_container");
-        private By items = By.CssSelector(".inventory_item");
+        private By burgerMenu = By.Id("react-burger-menu-btn");
+        private By title = By.ClassName("app_logo");
+        private By cart = By.ClassName("shopping_cart_link");
+        private By sort = By.ClassName("product_sort_container");
+        private By inventoryItems = By.ClassName("inventory_item");
 
-        public bool Burger() => driver.FindElement(burger).Displayed;
-        public bool Title() => driver.FindElement(title).Displayed;
-        public bool Cart() => driver.FindElement(cart).Displayed;
-        public bool Sort() => driver.FindElement(sort).Displayed;
-        public bool Items() => driver.FindElements(items).Count > 0;
+        public bool IsBurgerDisplayed() =>
+            driver.FindElement(burgerMenu).Displayed;
+
+        public bool IsTitleDisplayed() =>
+            driver.FindElement(title).Displayed;
+
+        public bool IsCartDisplayed() =>
+            driver.FindElement(cart).Displayed;
+
+        public bool IsSortDisplayed() =>
+            driver.FindElement(sort).Displayed;
+
+        public bool AreItemsDisplayed() =>
+            driver.FindElements(inventoryItems).Count > 0;
     }
 }
